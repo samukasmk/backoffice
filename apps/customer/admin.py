@@ -4,4 +4,4 @@ from apps.customer.models import Customer
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('customer_type', 'name', 'tax_id', 'city', 'state', 'country', 'created_at')

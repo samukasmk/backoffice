@@ -16,3 +16,6 @@ class Customer(models.Model):
     country = models.CharField(max_length=150, choices=[[country, country] for country in countries])
     created_at = models.DateTimeField(default=timezone.now, editable=False, blank=True)
     updated_at = models.DateTimeField(default=timezone.now, editable=False, blank=True)
+
+    def __str__(self):
+        return self.name

@@ -4,19 +4,19 @@ from apps.product.models import PackingSlipCustomization, ProductPipelineTask, P
 
 @admin.register(PackingSlipCustomization)
 class PackingSlipCustomizationAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'code')
 
 
 @admin.register(ProductPipelineTask)
 class ProductPipelineTaskAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'code')
 
 
 @admin.register(ProductType)
 class ProductTypeAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name',)
 
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'product_type', 'weight', 'price', 'seller_commission_tax')
