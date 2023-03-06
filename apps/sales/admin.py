@@ -18,8 +18,16 @@ class OrderAdmin(admin.ModelAdmin):
                     'total_price', 'total_weigth',
                     'packing_slip_file', 'created_at')
 
+    search_fields = ['customer__name']
+
     def total_price(self, obj):
-        return sum([p.product.price * p.quantity for p in obj.ordered_products.all()])
+        all_prices = [p.product.price * p.quantity for p in obj.ordered_products.all()]
+        added_price = sum(all_prices)
+        return '{0:.2f}'.format(added_price)
 
     def total_weigth(self, obj):
-        return sum([p.product.weight * p.quantity for p in obj.ordered_products.all()])
+        all_weights = [p.product.weight * p.quantity for p in obj.ordered_products.all()]
+        add_weight = sum(all_weights)
+        return '{0:.2f}'.format(add_weight)
+
+
