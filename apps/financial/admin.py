@@ -1,3 +1,12 @@
-from django.contrib import admin
+from admin_site import admin
+from apps.financial.models import SellerCommissionPayment, RoyaltiesPayment
 
-# Register your models here.
+
+@admin.register(SellerCommissionPayment)
+class SellerCommissionPaymentAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(RoyaltiesPayment)
+class RoyaltiesPaymentAdmin(admin.ModelAdmin):
+    pass

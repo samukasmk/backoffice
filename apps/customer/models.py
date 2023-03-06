@@ -9,7 +9,7 @@ client_types = ['individual', 'legal entity']
 class Customer(models.Model):
     customer_type = models.CharField(max_length=30, choices=create_choices_tuple(client_types))
     name = models.CharField(max_length=255)
-    cpf_cnpj = models.CharField(max_length=30)
+    tax_id = models.CharField(max_length=30)
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=150, choices=[[city, city] for city in cities])
     state = models.CharField(max_length=150, choices=[[state, state] for state in states])
