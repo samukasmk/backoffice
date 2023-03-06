@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
-from core.data.locations import cities, states, countries
-from core.utils.django_models.field_choices import create_choices_tuple
+from data.locations import cities, states, countries
+from utils.django_models.field_choices import create_choices_tuple
 
 client_types = ['individual', 'legal entity']
 

@@ -1,5 +1,5 @@
 from django.db import models
-from core.utils.django_models.field_choices import create_choices_tuple
+from utils.django_models.field_choices import create_choices_tuple
 
 # product_types = ['physical_product'
 #                  'physical_book'

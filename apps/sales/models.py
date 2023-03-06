@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from core.utils.django_models.field_choices import create_choices_tuple
+from utils.django_models.field_choices import create_choices_tuple
 
 order_status = ['new', 'printed', 'picked', 'delivered']
 
