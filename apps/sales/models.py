@@ -41,3 +41,8 @@ class Order(models.Model):
     def total_weigth(self):
         all_weights = [p.product.weight * p.quantity for p in self.ordered_products.all()]
         return sum(all_weights)
+
+    def total_seller_commission(self):
+        all_commissions = [p.product.price * p.quantity * (p.product.seller_commission_tax/100)
+                           for p in self.ordered_products.all()]
+        return sum(all_commissions)
