@@ -1,0 +1,3 @@
+def create_seller_commission_payment(ordered_products):
+    print('create_seller_commission_payment:', ordered_products)
+    ...

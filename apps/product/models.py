@@ -4,7 +4,7 @@ from utils.django_models.field_choices import create_choices_tuple, code_to_name
 
 # product_types = ['physical_product'
 #                  'physical_book'
-#                  'new_membership_subscription'
+#                  'create_membership_subscription'
 #                  'upgrade_membership_subscription'
 #                  'sports_course_purchase']
 
@@ -17,8 +17,10 @@ from utils.django_models.field_choices import create_choices_tuple, code_to_name
 #     'create_packing_slip',
 #     'create_seller_commission_payment',
 #     'create_royalties_payment',
-#     'send_email_for_new_membership_subscription',
-#     'send_email_for_upgrade_membership_subscription',
+#     'create_membership_subscription',
+#     'upgrade_membership_subscription',
+#     'send_email_create_membership_subscription',
+#     'send_email_upgrade_membership_subscription',
 # ]
 
 

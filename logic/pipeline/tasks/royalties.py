@@ -1,0 +1,3 @@
+def create_royalties_payment(ordered_products):
+    print('create_royalties_payment:', ordered_products)
+    ...

@@ -22,7 +22,7 @@ class OrderedProductInLine(admin.TabularInline):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('customer', 'seller', 'order_status',
-                    'total_price', 'total_weigth',
+                    'total_price', 'total_weight', 'total_seller_commission',
                     'packing_slip_file', 'created_at')
 
     search_fields = ['customer__name']
@@ -30,7 +30,10 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderedProductInLine]
 
     def total_price(self, obj):
-        return '{0:.2f}'.format(obj.total_price())
+        return '{0:.2f}'.format(obj.order_total_price())
 
-    def total_weigth(self, obj):
-        return '{0:.2f}'.format(obj.total_weigth())
+    def total_weight(self, obj):
+        return '{0:.2f}'.format(obj.order_total_weight())
+
+    def total_seller_commission(self, obj):
+        return '{0:.2f}'.format(obj.order_total_seller_commission())

@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from utils.django_models.field_choices import create_choices_tuple
-from apps.sales.logic import calculate_total_price, calculate_total_weigth, calculate_total_seller_commission
+from logic.packing_slip.calcs import calculate_total_price, calculate_total_weigth, calculate_total_seller_commission
 
 order_status = ['new', 'printed', 'picked', 'delivered']
 

@@ -117,6 +117,7 @@
     "fields": {
       "name": "Create membership subscription",
       "pipeline_tasks": [
+        1,
         4,
         6
       ],
@@ -129,6 +130,7 @@
     "fields": {
       "name": "Upgrade membership subscription",
       "pipeline_tasks": [
+        1,
         5,
         7
       ],

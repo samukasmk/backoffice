@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=50)),
                 ('packing_slip_customizations', models.ManyToManyField(blank=True, null=True, to='product.packingslipcustomization')),
-                ('pipeline_tasks', models.ManyToManyField(to='product.productpipelinetask')),
+                ('pipeline', models.ManyToManyField(to='product.productpipelinetask')),
             ],
         ),
         migrations.CreateModel(
