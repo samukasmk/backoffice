@@ -1,0 +1,137 @@
+[
+  {
+    "model": "sales.seller",
+    "pk": 1,
+    "fields": {
+      "name": "Sandro Lima"
+    }
+  },
+  {
+    "model": "sales.seller",
+    "pk": 2,
+    "fields": {
+      "name": "Amanda Camargo"
+    }
+  },
+  {
+    "model": "sales.seller",
+    "pk": 3,
+    "fields": {
+      "name": "Roger Villas"
+    }
+  },
+  {
+    "model": "sales.orderedproduct",
+    "pk": 1,
+    "fields": {
+      "product": 1,
+      "quantity": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "sales.orderedproduct",
+    "pk": 2,
+    "fields": {
+      "product": 2,
+      "quantity": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "sales.orderedproduct",
+    "pk": 3,
+    "fields": {
+      "product": 4,
+      "quantity": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "sales.orderedproduct",
+    "pk": 4,
+    "fields": {
+      "product": 1,
+      "quantity": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "sales.orderedproduct",
+    "pk": 5,
+    "fields": {
+      "product": 1,
+      "quantity": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "sales.orderedproduct",
+    "pk": 6,
+    "fields": {
+      "product": 1,
+      "quantity": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "sales.orderedproduct",
+    "pk": 7,
+    "fields": {
+      "product": 1,
+      "quantity": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "sales.orderedproduct",
+    "pk": 8,
+    "fields": {
+      "product": 2,
+      "quantity": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "sales.orderedproduct",
+    "pk": 9,
+    "fields": {
+      "product": 5,
+      "quantity": 1,
+      "order": 2
+    }
+  },
+  {
+    "model": "sales.orderedproduct",
+    "pk": 10,
+    "fields": {
+      "product": 4,
+      "quantity": 3,
+      "order": 2
+    }
+  },
+  {
+    "model": "sales.order",
+    "pk": 1,
+    "fields": {
+      "order_status": "New",
+      "customer": 1,
+      "seller": 1,
+      "packing_slip_file": "",
+      "created_at": "2023-03-06T22:14:09.378Z",
+      "updated_at": "2023-03-06T22:14:09.378Z"
+    }
+  },
+  {
+    "model": "sales.order",
+    "pk": 2,
+    "fields": {
+      "order_status": "New",
+      "customer": 1,
+      "seller": 2,
+      "packing_slip_file": "",
+      "created_at": "2023-03-06T23:26:45.633Z",
+      "updated_at": "2023-03-06T23:26:45.633Z"
+    }
+  }
+]
