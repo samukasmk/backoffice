@@ -3,8 +3,9 @@ from model_bakery import baker
 
 
 @pytest.fixture
-def customer_order():
+def order():
     return baker.make("Order", make_m2m=True)
+
 
 
 @pytest.fixture
@@ -18,17 +19,21 @@ def avaliable_products():
 
 
 @pytest.fixture
-def ordered_products(customer_order, avaliable_products):
-    return [baker.make("OrderedProduct", product=avaliable_products[0], quantity=3, order=customer_order, make_m2m=True),
-            baker.make("OrderedProduct", product=avaliable_products[1], quantity=2, order=customer_order, make_m2m=True),
-            baker.make("OrderedProduct", product=avaliable_products[2], quantity=1, order=customer_order, make_m2m=True)]
+def ordered_products(order, avaliable_products):
+    return [baker.make("OrderedProduct", product=avaliable_products[0], quantity=3, order=order, make_m2m=True),
+            baker.make("OrderedProduct", product=avaliable_products[1], quantity=2, order=order, make_m2m=True),
+            baker.make("OrderedProduct", product=avaliable_products[2], quantity=1, order=order, make_m2m=True)]
 
 
 @pytest.fixture
-def ordered_products_total_price():
+def total_price():
     return (5.99 * 3) + (599.99 * 2) + (29.99 * 1)
 
 
 @pytest.fixture
-def ordered_products_total_weight():
+def total_weigth():
     return (0.8 * 3) + (3.5 * 2) + (0 * 1)
+
+@pytest.fixture
+def total_seller_commission():
+    return (5.99 * 3 * 0.005) + (599.99 * 2 * 0.15) + (29.99 * 1 * 0)
