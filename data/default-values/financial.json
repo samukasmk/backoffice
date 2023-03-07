@@ -1,0 +1,18 @@
+[
+  {
+    "model": "financial.sellercommissionpayment",
+    "pk": 1,
+    "fields": {
+      "order": 1,
+      "status": "Approved"
+    }
+  },
+  {
+    "model": "financial.royaltiespayment",
+    "pk": 1,
+    "fields": {
+      "order": 1,
+      "status": "New"
+    }
+  }
+]
