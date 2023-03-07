@@ -33,3 +33,11 @@ class Order(models.Model):
 
     def __str__(self):
         return f'{self.pk} ({self.customer})'
+
+    def total_price(self):
+        all_prices = [p.product.price * p.quantity for p in self.ordered_products.all()]
+        return sum(all_prices)
+
+    def total_weigth(self):
+        all_weights = [p.product.weight * p.quantity for p in self.ordered_products.all()]
+        return sum(all_weights)
