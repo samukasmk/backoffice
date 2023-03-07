@@ -1,6 +1,9 @@
 from django.db import models
 from django.utils import timezone
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from utils.django_models.field_choices import create_choices_tuple
+from logic.pipeline.runner import pipeline_runner
 from logic.packing_slip.calcs import calculate_total_price, calculate_total_weigth, calculate_total_seller_commission
 
 order_status = ['new', 'printed', 'picked', 'delivered']
@@ -52,3 +55,9 @@ class Order(models.Model):
 
     def order_total_seller_commission(self):
         return sum([ordered_product.total_seller_commission() for ordered_product in self.ordered_products.all()])
+
+
+@receiver(post_save, sender=Order, dispatch_uid="trigger_to_run_pipeline")
+def trigger_to_run_pipeline(sender, instance, created, **kwargs):
+    if created:
+        pipeline_runner(instance)
