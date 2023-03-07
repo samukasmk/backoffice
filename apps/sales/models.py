@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from utils.django_models.field_choices import create_choices_tuple
+from apps.sales.logic import calculate_total_price, calculate_total_weigth, calculate_total_seller_commission
 
 order_status = ['new', 'printed', 'picked', 'delivered']
 
@@ -16,6 +17,15 @@ class OrderedProduct(models.Model):
     product = models.ForeignKey('product.Product', on_delete=models.CASCADE)
     quantity = models.IntegerField()
     order = models.ForeignKey('sales.Order', on_delete=models.CASCADE, related_name='ordered_products')
+
+    def total_price(self):
+        return calculate_total_price(self.product.price, self.quantity)
+
+    def total_weight(self):
+        return calculate_total_weigth(self.product.weight, self.quantity)
+
+    def total_seller_commission(self):
+        return calculate_total_seller_commission(self.total_price(), self.product.seller_commission_tax)
 
     def __str__(self):
         return f'{self.product.name}: {self.quantity}'
@@ -33,3 +43,12 @@ class Order(models.Model):
 
     def __str__(self):
         return f'{self.pk} ({self.customer})'
+
+    def order_total_price(self):
+        return sum([ordered_product.total_price() for ordered_product in self.ordered_products.all()])
+
+    def order_total_weight(self):
+        return sum([ordered_product.total_weight() for ordered_product in self.ordered_products.all()])
+
+    def order_total_seller_commission(self):
+        return sum([ordered_product.total_seller_commission() for ordered_product in self.ordered_products.all()])
