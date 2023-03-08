@@ -3,8 +3,8 @@ from django.utils import timezone
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from utils.django_models.field_choices import create_choices_tuple
-from logic.pipeline.runner import pipeline_runner
-from logic.packing_slip.calcs import calculate_total_price, calculate_total_weigth, calculate_total_seller_commission
+from apps.sales.logic import calculate_total_price, calculate_total_weight, calculate_total_seller_commission
+from apps.tasks_pipeline.logic import pipeline_runner
 
 order_status = ('new', 'printed', 'picked', 'delivered')
 
@@ -25,7 +25,7 @@ class OrderedProduct(models.Model):
         return calculate_total_price(self.product.price, self.quantity)
 
     def total_weight(self):
-        return calculate_total_weigth(self.product.weight, self.quantity)
+        return calculate_total_weight(self.product.weight, self.quantity)
 
     def total_seller_commission(self):
         return calculate_total_seller_commission(self.total_price(), self.product.seller_commission_tax)

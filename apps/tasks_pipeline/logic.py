@@ -1,10 +1,11 @@
-from logic.pipeline import tasks as tasks_module
+import tasks as tasks_module
 
 
 def get_pipeline_tasks(order_model):
-    task_function_names = order_model.ordered_products.all().values_list(
-        'product__product_type__pipeline_tasks__code', flat=True).distinct()
-    return list(task_function_names)
+    # task_function_names = order_model.ordered_products.all().values_list(
+    #     'product__product_type__pipeline_tasks__code', flat=True).distinct()
+    # return list(task_function_names)
+    return []
 
 
 def pipeline_runner(order_model):
