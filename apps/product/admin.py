@@ -1,27 +1,19 @@
 from admin_site import admin
-from apps.product.models import PackingSlipCustomization, ProductPipelineTask, ProductType, Product
-
-
-@admin.register(PackingSlipCustomization)
-class PackingSlipCustomizationAdmin(admin.ModelAdmin):
-    list_display = ('name', 'code')
-    search_fields = ('name',)
-
-@admin.register(ProductPipelineTask)
-class ProductPipelineTaskAdmin(admin.ModelAdmin):
-    list_display = ('name', 'code')
-    search_fields = ('name',)
+from apps.product.models import Product, ProductType
 
 
 @admin.register(ProductType)
 class ProductTypeAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+    list_display = ('name', 'pipeline')
     search_fields = ('name',)
-    autocomplete_fields = ('pipeline_tasks', 'packing_slip_customizations')
+    autocomplete_fields = ('pipeline',)
+    ordering = ('id',)
 
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'product_type', 'weight', 'price', 'seller_commission_tax')
+    list_display = ('product_type', 'sku', 'name', 'weight', 'price', 'seller_commission_tax')
     autocomplete_fields = ('product_type',)
     search_fields = ('name',)
+    ordering = ('product_type', 'name',)
+    list_filter = ('product_type',)

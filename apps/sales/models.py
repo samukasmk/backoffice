@@ -3,18 +3,18 @@ from django.utils import timezone
 from utils.django_models.field_choices import create_choices_tuple
 from apps.sales.logic import calculate_total_price, calculate_total_weigth, calculate_total_seller_commission
 
-order_status = ['new', 'printed', 'picked', 'delivered']
+order_status = ('new', 'printed', 'picked', 'delivered')
 
 
 class Seller(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
 
     def __str__(self):
         return self.name
 
 
 class OrderedProduct(models.Model):
-    product = models.ForeignKey('product.Product', on_delete=models.CASCADE)
+    product = models.ForeignKey('product.Product', on_delete=models.PROTECT)
     quantity = models.IntegerField()
     order = models.ForeignKey('sales.Order', on_delete=models.CASCADE, related_name='ordered_products')
 
@@ -33,8 +33,8 @@ class OrderedProduct(models.Model):
 
 class Order(models.Model):
     order_status = models.CharField(max_length=30, choices=create_choices_tuple(order_status), default='new')
-    customer = models.ForeignKey('customer.Customer', on_delete=models.CASCADE)
-    seller = models.ForeignKey('sales.Seller', on_delete=models.CASCADE)
+    customer = models.ForeignKey('customer.Customer', on_delete=models.PROTECT)
+    seller = models.ForeignKey('sales.Seller', on_delete=models.PROTECT)
 
     packing_slip_file = models.FileField(upload_to="packing_slips/", editable=False, null=True, blank=True)
 
