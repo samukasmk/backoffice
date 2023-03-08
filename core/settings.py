@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'apps.financial',
     'apps.product',
     'apps.sales',
+    'apps.tasks_pipeline',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +128,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DEFAULT_TIME_FORMAT = '%Y-%m-%d %H:%M:%S'

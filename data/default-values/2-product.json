@@ -1,145 +1,50 @@
 [
   {
-    "model": "product.packingslipcustomization",
-    "pk": 1,
-    "fields": {
-      "name": "Generate royalties sheet",
-      "code": "generate_royalties_sheet"
-    }
-  },
-  {
-    "model": "product.packingslipcustomization",
-    "pk": 2,
-    "fields": {
-      "name": "Add first aid video",
-      "code": "add_first_aid_video"
-    }
-  },
-  {
-    "model": "product.productpipelinetask",
-    "pk": 1,
-    "fields": {
-      "name": "Create packing slip",
-      "code": "create_packing_slip"
-    }
-  },
-  {
-    "model": "product.productpipelinetask",
-    "pk": 2,
-    "fields": {
-      "name": "Create seller commission payment",
-      "code": "create_seller_commission_payment"
-    }
-  },
-  {
-    "model": "product.productpipelinetask",
-    "pk": 3,
-    "fields": {
-      "name": "Create royalties payment",
-      "code": "create_royalties_payment"
-    }
-  },
-  {
-    "model": "product.productpipelinetask",
-    "pk": 4,
-    "fields": {
-      "name": "Create membership subscription",
-      "code": "create_membership_subscription"
-    }
-  },
-  {
-    "model": "product.productpipelinetask",
-    "pk": 5,
-    "fields": {
-      "name": "Upgrade membership subscription",
-      "code": "upgrade_membership_subscription"
-    }
-  },
-  {
-    "model": "product.productpipelinetask",
-    "pk": 6,
-    "fields": {
-      "name": "Send email create membership subscription",
-      "code": "send_email_create_membership_subscription"
-    }
-  },
-  {
-    "model": "product.productpipelinetask",
-    "pk": 7,
-    "fields": {
-      "name": "Send email upgrade membership subscription",
-      "code": "send_email_upgrade_membership_subscription"
-    }
-  },
-  {
     "model": "product.producttype",
     "pk": 1,
     "fields": {
       "name": "Physical product",
-      "pipeline_tasks": [
-        1,
-        2
-      ],
-      "packing_slip_customizations": []
+      "pipeline": 1
     }
   },
   {
     "model": "product.producttype",
     "pk": 2,
     "fields": {
-      "name": "Physical book",
-      "pipeline_tasks": [
-        1,
-        2,
-        3
-      ],
-      "packing_slip_customizations": [
-        1
-      ]
+      "name": "Physical Book",
+      "pipeline": 2
     }
   },
   {
     "model": "product.producttype",
     "pk": 3,
     "fields": {
-      "name": "Sports video course",
-      "pipeline_tasks": [
-        1
-      ],
-      "packing_slip_customizations": [
-        2
-      ]
+      "name": "New Membership Subscription",
+      "pipeline": 3
     }
   },
   {
     "model": "product.producttype",
     "pk": 4,
     "fields": {
-      "name": "Create membership subscription",
-      "pipeline_tasks": [
-        4,
-        6
-      ],
-      "packing_slip_customizations": []
+      "name": "Upgrade Membership Subscription",
+      "pipeline": 4
     }
   },
   {
     "model": "product.producttype",
     "pk": 5,
     "fields": {
-      "name": "Upgrade membership subscription",
-      "pipeline_tasks": [
-        5,
-        7
-      ],
-      "packing_slip_customizations": []
+      "name": "Sports Course",
+      "pipeline": 5
     }
   },
   {
     "model": "product.product",
     "pk": 1,
     "fields": {
-      "name": "Atomic Cloud Q9 Skis",
+      "sku": "PHY-PRO-230308-194906-117",
+      "name": "Ski Atomic Cloud Q9",
       "product_type": 1,
       "description": "Features\r\nIncludes M10 GW bindings\r\nWith a multi-radius sidecut and 75 mm waists—a solid platform for variable snow conditions—these skis excel in any on-piste conditions\r\nDura Cap sidewall construction creates secure edge hold through the turns\r\nStructured topsheets\r\nComposite wood core combines lightweight wood and Densolite, keeping the skis responsive and light to minimize fatigue and maximize fun\r\nAll-condition piste shape and active camber profile (0/100/0) mean these skis are at home cruising the groomers or making quick turns through afternoon bumps\r\nImported.\r\n\r\nIf you have questions regarding ski sizing, please visit a sales specialist at your local REI or contact us at 1-800-426-4840.\r\n\r\nhttps://www.rei.com/product/212836/atomic-cloud-q9-skis-with-bindings-womens-20222023",
       "weight": 10,
@@ -151,7 +56,8 @@
     "model": "product.product",
     "pk": 2,
     "fields": {
-      "name": "Atomic Bent Chetler Mini 133-143 Skis",
+      "sku": "PHY-PRO-230308-194906-121",
+      "name": "Ski Atomic Bent Chetler Mini 133-143",
       "product_type": 1,
       "description": "Features\r\nIncludes L6 bindings\r\nStability-inducing Dura Cap sidewall construction offers solid skiing performances on harder snow surfaces\r\nDesigned by Chris Benchetler, powder rocker (20/70/10) profile combines with wide 90 mm waists to offer kid skiers superior float in deeper snow and softer terrain\r\nDensolite cores and glossy topsheets\r\nDirectional shape\r\nDesigned for kids 5–8 years old\r\nImported.\r\n\r\nIf you have questions regarding ski sizing, please visit a sales specialist at your local REI or contact us at 1-800-426-4840.\r\n\r\nhttps://www.rei.com/product/212839/atomic-bent-chetler-mini-133-143-skis-with-bindings-kids-20222023",
       "weight": 5,
@@ -163,7 +69,8 @@
     "model": "product.product",
     "pk": 3,
     "fields": {
-      "name": "Elan Jett Skis",
+      "sku": "PHY-PRO-230308-194906-126",
+      "name": "Ski Elan Jett",
       "product_type": 1,
       "description": "Features\r\nPatented U-Flex fechnology allows kids to fully flex the skis and feel their carve, helping accelerate the learning process\r\nFiberglass reinforcements optimize the flex pattern and enhance torsional rigidity\r\nSynflex cores feature varying densities along the length of the ski, providing a lightweight feel and optimal flex distribution\r\nEdge-to-edge, reinforced Full Power Cap construction distributes force and stability without adding weight\r\nIncludes QS 7.5 bindings\r\nImported.\r\n\r\nIf you have questions regarding ski sizing, please visit a sales specialist at your local REI or contact us at 1-800-426-4840.\r\n\r\nhttps://www.rei.com/product/214124/elan-jett-skis-with-bindings-kids-20222023",
       "weight": 1,
@@ -175,6 +82,7 @@
     "model": "product.product",
     "pk": 4,
     "fields": {
+      "sku": "PHY-BOO-230308-194906-130",
       "name": "Climb to Conquer: The Untold Story of WWII's 10th Mountain Division",
       "product_type": 2,
       "description": "Best for ages 13+\r\n\r\nDuring the 1930s, rock climbing and downhill skiing were relatively new sports in the United States. World War II, on the other hand, produced a need for males who could withstand severe altitudes and extreme conditions — and the elite 10th Mountain Division was formed. It was the first and only United States Army division trained in snow and rock, as well as the only one ever to emerge from a sport. The 10th Infantry Division, which had an unmatched number of professionals athletes, college students, and prospective officer candidates, and as the final US division to enter the European War suffered the highest casualties per combat day. This is the tale of a group of American soldiers that won’t be forgotten easily.\r\n\r\nhttps://www.amazon.com/Climb-Conquer-Untold-Mountain-Division/dp/145165510X",
@@ -187,6 +95,7 @@
     "model": "product.product",
     "pk": 5,
     "fields": {
+      "sku": "PHY-BOO-230308-194906-134",
       "name": "100 Slopes of a Lifetime: The World's Ultimate Ski and Snowboard Destinations",
       "product_type": 2,
       "description": "Best for Ages 13+\r\n\r\nThis inspiring ski guide, filled with stunning National Geographic photos, wisdom from experts, vital travel information, and useful advice, provides the greatest ski and snowboarding adventures on breathtaking slopes across the world.\r\n\r\nThe book is divided by both interest and skill level, so whether you’re looking for cross country routes, intermediate runs, or expert terrain in the backcountry, you’re sure to love this book about skiing.\r\n\r\nhttps://www.amazon.com/100-Slopes-Lifetime-Snowboard-Destinations/dp/1426221959",
@@ -199,6 +108,7 @@
     "model": "product.product",
     "pk": 6,
     "fields": {
+      "sku": "PHY-BOO-230308-194906-139",
       "name": "Secrets of the Greatest Snow on Earth: Weather, Climate Change, and Finding Deep Powder in Utah's Wasatch Mountains and around the World",
       "product_type": 2,
       "description": "Best for Ages 13+\r\n\r\nThis gorgeous 292-page hardback coffee table book is the first and definitive collection of James Niehues’ artwork, with over 200 ski resort trail maps painted by one legendary artist. Niehues explains how he creates his detailed paintings in an engaging narrative that compliments the maps. He starts by teaching you how to create a detailed map of Breckenridge, from the ground up. He goes through each and every step, including aerial photographs and numerous pencil sketches, in-progress constructions, and final trail map drawing. The finished product is described in both a foreword written by renowned big-mountain skier Chris Davenport and the statements of other ski industry experts.\r\n\r\nhttps://www.amazon.com/Secrets-Greatest-Snow-Earth-Mountains/dp/0874219507",
@@ -211,8 +121,9 @@
     "model": "product.product",
     "pk": 7,
     "fields": {
-      "name": "Learning to Ski or Snowboard",
-      "product_type": 3,
+      "sku": "SPO-COU-230308-194906-144",
+      "name": "Learning to Ski or Snowboard with John Weiland",
+      "product_type": 5,
       "description": "What you will learn:\r\nSave money skiing or snowboarding\r\nKnow the equipment and habits that will keep them safe\r\nKnow what equipment a beginner must buy, what they might buy and what they should avoid\r\nKnow how to read a trail map\r\nUnderstand the various types of ski lifts and how to use each one\r\nKnow how to choose proper clothing for the slopes\r\nKnow the best times and places to ski\r\nKnow how to decide if a ski area is a good place for them to learn\r\nKnow the advantages and disadvantages of skiing versus snowboarding\r\nThis course will NOT teach how to ski or snowboard - you need professional instruction for that\r\n\r\nhttps://www.udemy.com/course/learning-to-ski-or-snowboard/",
       "weight": 0,
       "price": 79.99,
@@ -223,8 +134,9 @@
     "model": "product.product",
     "pk": 8,
     "fields": {
+      "sku": "NEW-MEM-230308-194906-148",
       "name": "Basic Snowboard TV channels membership (for all)",
-      "product_type": 4,
+      "product_type": 3,
       "description": "3 online TV channels from swiss championships",
       "weight": 0,
       "price": 29.99,
@@ -235,8 +147,9 @@
     "model": "product.product",
     "pk": 9,
     "fields": {
+      "sku": "UPG-MEM-230308-194906-152",
       "name": "Premium Snowboard TV channels membership (only for members)",
-      "product_type": 5,
+      "product_type": 4,
       "description": "50 online TV channels with championships around the world",
       "weight": 0,
       "price": 99.99,

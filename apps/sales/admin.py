@@ -5,12 +5,8 @@ from apps.sales.models import Seller, Order, OrderedProduct
 @admin.register(Seller)
 class SellerAdmin(admin.ModelAdmin):
     list_display = ('name',)
-    search_fields = ['name']
-
-
-@admin.register(OrderedProduct)
-class OrderedProductAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ('name',)
+    ordering = ('name',)
 
 
 class OrderedProductInLine(admin.TabularInline):
@@ -26,6 +22,8 @@ class OrderAdmin(admin.ModelAdmin):
                     'packing_slip_file', 'created_at')
 
     search_fields = ['customer__name']
+    ordering = ('-id',)
+
     autocomplete_fields = ('customer', 'seller')
     inlines = [OrderedProductInLine]
 
