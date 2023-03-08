@@ -1,57 +1,20 @@
 from django.db import models
+from django.utils import timezone
 from utils.django_models.field_choices import create_choices_tuple, code_to_name
 
 
-# product_types = ['physical_product'
-#                  'physical_book'
-#                  'create_membership_subscription'
-#                  'upgrade_membership_subscription'
-#                  'sports_course_purchase']
-
-# packing_slip_customization_choices = [
-#     'generate_royalties_sheet',
-#     'add_first_aid_video'
-# ]
-
-# product_pipeline_task_choices = [
-#     'create_packing_slip',
-#     'create_seller_commission_payment',
-#     'create_royalties_payment',
-#     'create_membership_subscription',
-#     'upgrade_membership_subscription',
-#     'send_email_create_membership_subscription',
-#     'send_email_upgrade_membership_subscription',
-# ]
-
-
-class PackingSlipCustomization(models.Model):
-    name = models.CharField(max_length=100)
-    code = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
-
-
-class ProductPipelineTask(models.Model):
-    name = models.CharField(max_length=100)
-    code = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
-
-
 class ProductType(models.Model):
-    name = models.CharField(max_length=50)
-    pipeline_tasks = models.ManyToManyField('product.ProductPipelineTask')
-    packing_slip_customizations = models.ManyToManyField('product.PackingSlipCustomization', null=True, blank=True)
+    name = models.CharField(max_length=50, unique=True)
+    pipeline = models.ForeignKey('tasks_pipeline.Pipeline', null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.name
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=255)
-    product_type = models.ForeignKey('product.ProductType', on_delete=models.CASCADE)
+    sku = models.CharField(max_length=30, unique=True, blank=True, editable=False)
+    name = models.CharField(max_length=255, unique=True)
+    product_type = models.ForeignKey('product.ProductType', on_delete=models.PROTECT)
     description = models.TextField(null=True, blank=True)
     weight = models.FloatField()
     price = models.FloatField()
@@ -59,3 +22,12 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        # creating SKU code
+        if not self.sku:
+            sku_prefix = '-'.join([initials.upper()[:3] for initials in self.product_type.name.split(' ')[:2]])
+            sku_id = timezone.now().strftime('%y%m%d-%H%M%S-%f')[:17]
+            self.sku = f'{sku_prefix}-{sku_id}'
+        super().save(*args, **kwargs)
+
