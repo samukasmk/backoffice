@@ -1,3 +1,3 @@
-def create_seller_commission_payment(ordered_products):
-    print('create_seller_commission_payment:', ordered_products)
+def create_seller_commission_payment(order_model_pk):
+    print('create_seller_commission_payment:', order_model_pk)
     ...

@@ -1,3 +1,3 @@
-def create_royalties_payment(ordered_products):
-    print('create_royalties_payment:', ordered_products)
+def create_royalties_payment(order_model_pk):
+    print('create_royalties_payment:', order_model_pk)
     ...

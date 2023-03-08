@@ -1,7 +1,7 @@
-def create_membership_subscription(ordered_products):
-    print('create_membership_subscription:', ordered_products)
+def create_membership_subscription(order_model_pk):
+    print('create_membership_subscription:', order_model_pk)
     ...
 
-def upgrade_membership_subscription(ordered_products):
-    print('upgrade_membership_subscription:', ordered_products)
+def upgrade_membership_subscription(order_model_pk):
+    print('upgrade_membership_subscription:', order_model_pk)
     ...

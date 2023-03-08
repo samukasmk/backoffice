@@ -1,3 +1,3 @@
-def create_packing_slip(ordered_products):
-    print('create_packing_slip:', ordered_products)
+def create_packing_slip(order_model_pk):
+    print('create_packing_slip:', order_model_pk)
     ...
