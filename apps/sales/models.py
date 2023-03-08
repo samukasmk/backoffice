@@ -63,5 +63,5 @@ class Order(models.Model):
 
 @receiver(post_save, sender=Order, dispatch_uid="trigger_to_run_pipeline")
 def trigger_to_run_pipeline(sender, instance, created, **kwargs):
-    if created:
-        pipeline_runner(instance)
+    # if created:
+    pipeline_runner(instance)

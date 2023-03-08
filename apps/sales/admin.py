@@ -11,13 +11,14 @@ class SellerAdmin(admin.ModelAdmin):
 
 class OrderedProductInLine(admin.TabularInline):
     model = OrderedProduct
-    extra = 1
+    extra = 0
+    min_num = 1
     autocomplete_fields = ('product',)
 
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('customer', 'seller', 'order_status',
+    list_display = ('customer', 'order_status', 'seller',
                     'total_price', 'total_weight', 'total_seller_commission',
                     'packing_slip_file', 'created_at')
 
