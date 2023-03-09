@@ -5,8 +5,8 @@ from tasks import registered_tasks
 
 @shared_task
 def pipeline_runner(model_class_ref, instance_pk):
-    model_class = get_model_class(model_class_ref)
-    instance_model = model_class.objects.get(pk=instance_pk)
+    ModelClass = get_model_class(model_class_ref)
+    instance_model = ModelClass.objects.get(pk=instance_pk)
     pipeline_details = instance_model.get_pipeline_details()
 
     for task_function_path, task_function_args in pipeline_details.items():

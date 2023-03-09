@@ -62,7 +62,7 @@
     "pk": 2,
     "fields": {
       "product": 5,
-      "quantity": 1,
+      "quantity": 2,
       "order": 1
     }
   },
@@ -175,10 +175,20 @@
     }
   },
   {
+    "model": "sales.orderedproduct",
+    "pk": 18,
+    "fields": {
+      "product": 6,
+      "quantity": 1,
+      "order": 1
+    }
+  },
+  {
     "model": "sales.order",
     "pk": 1,
     "fields": {
-      "order_status": "New",
+      "code": "ORD-IND-230309-215721-40348",
+      "status": "new",
       "customer": 2,
       "seller": 1,
       "packing_slip_file": "",
@@ -190,7 +200,8 @@
     "model": "sales.order",
     "pk": 2,
     "fields": {
-      "order_status": "New",
+      "code": "ORD-IND-230309-215721-40768",
+      "status": "new",
       "customer": 1,
       "seller": 3,
       "packing_slip_file": "",
@@ -202,7 +213,8 @@
     "model": "sales.order",
     "pk": 3,
     "fields": {
-      "order_status": "New",
+      "code": "ORD-IND-230309-215721-41381",
+      "status": "new",
       "customer": 3,
       "seller": 2,
       "packing_slip_file": "",
@@ -214,7 +226,8 @@
     "model": "sales.order",
     "pk": 4,
     "fields": {
-      "order_status": "New",
+      "code": "ORD-LEG-230309-215721-41860",
+      "status": "new",
       "customer": 4,
       "seller": 3,
       "packing_slip_file": "",
@@ -226,7 +239,8 @@
     "model": "sales.order",
     "pk": 5,
     "fields": {
-      "order_status": "New",
+      "code": "ORD-LEG-230309-215721-42277",
+      "status": "new",
       "customer": 6,
       "seller": 4,
       "packing_slip_file": "",
@@ -238,7 +252,8 @@
     "model": "sales.order",
     "pk": 6,
     "fields": {
-      "order_status": "New",
+      "code": "ORD-LEG-230309-215721-42637",
+      "status": "new",
       "customer": 5,
       "seller": 7,
       "packing_slip_file": "",

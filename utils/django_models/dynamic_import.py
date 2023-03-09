@@ -1,6 +1,7 @@
+from functools import lru_cache
 from django.apps import apps
 
-
+@lru_cache(maxsize=300)
 def get_model_class(model_class_ref):
     """>>> get_model_class('my_app_module.MyModelClass')
        MyModelClass

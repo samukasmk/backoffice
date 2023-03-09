@@ -20,7 +20,7 @@ class Product(models.Model):
     seller_commission_tax = models.FloatField()
 
     def __str__(self):
-        return self.name
+        return f'{self.name}: ${self.price}'
 
     def save(self, *args, **kwargs):
         # creating SKU code
