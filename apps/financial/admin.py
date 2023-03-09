@@ -35,15 +35,15 @@ class SellerCommissionPaymentAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         return False
 
-    @admin.action(description='Approve new royalties payments')
+    @admin.action(description='Approve (new) seller commission payments')
     def approve_new_payments(self, request, queryset):
         queryset.filter(status='new').update(status='approved')
 
-    @admin.action(description='Reprove new and approved royalties payments')
+    @admin.action(description='Reprove (new) and (approved) seller commission payments')
     def reproved_new_payments(self, request, queryset):
         queryset.filter(status__in=['new', 'approved']).update(status='reproved')
 
-    @admin.action(description='Pay approved royalties payments')
+    @admin.action(description='Pay (approved) seller commission payments')
     def pay_approved_payments(self, request, queryset):
         queryset.filter(status='approved').update(status='payed')
 
@@ -77,14 +77,14 @@ class RoyaltiesPaymentAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         return False
 
-    @admin.action(description='Approve new royalties payments')
+    @admin.action(description='Approve (new) royalties payments')
     def approve_new_payments(self, request, queryset):
         queryset.filter(status='new').update(status='approved')
 
-    @admin.action(description='Reprove new and approved royalties payments')
+    @admin.action(description='Reprove (new) and approved royalties payments')
     def reproved_new_payments(self, request, queryset):
         queryset.filter(status__in=['new', 'approved']).update(status='reproved')
 
-    @admin.action(description='Pay approved royalties payments')
+    @admin.action(description='Pay (approved) royalties payments')
     def pay_approved_payments(self, request, queryset):
         queryset.filter(status='approved').update(status='payed')

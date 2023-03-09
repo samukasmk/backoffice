@@ -29,7 +29,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ('status', 'seller')
 
     # listing actions
-    actions = ('run_order_pipeline_again',)
+    actions = ('set_order_as_printed', 'set_order_as_picked', 'set_order_as_delivered', 'run_order_pipeline_again')
 
     # create/edit view
     autocomplete_fields = ('customer', 'seller')
@@ -46,6 +46,18 @@ class OrderAdmin(admin.ModelAdmin):
 
     def order_created_at(self, obj):
         return obj.created_at.strftime(settings.DEFAULT_TIME_FORMAT)
+
+    @admin.action(description='Set (new) orders as (printed)')
+    def set_order_as_printed(self, request, queryset):
+        queryset.filter(status='new').update(status='printed')
+
+    @admin.action(description='Set (printed) orders as (picked)')
+    def set_order_as_picked(self, request, queryset):
+        queryset.filter(status='printed').update(status='picked')
+
+    @admin.action(description='Set (picked) orders as (delivered)')
+    def set_order_as_delivered(self, request, queryset):
+        queryset.filter(status='picked').update(status='delivered')
 
     @admin.action(description='Run tasks from order pipeline again')
     def run_order_pipeline_again(self, request, queryset):
