@@ -29,7 +29,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ('status', 'seller')
 
     # listing actions
-    actions = ('run_order_pipeline',)
+    actions = ('run_order_pipeline_again',)
 
     # create/edit view
     autocomplete_fields = ('customer', 'seller')
@@ -47,7 +47,7 @@ class OrderAdmin(admin.ModelAdmin):
     def order_created_at(self, obj):
         return obj.created_at.strftime(settings.DEFAULT_TIME_FORMAT)
 
-    @admin.action(description='Run tasks from order pipeline')
-    def run_order_pipeline(self, request, queryset):
+    @admin.action(description='Run tasks from order pipeline again')
+    def run_order_pipeline_again(self, request, queryset):
         for order in queryset.all():
             pipeline_runner.delay(model_class_ref='sales.Order', instance_pk=order.pk)

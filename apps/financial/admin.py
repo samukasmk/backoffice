@@ -9,6 +9,7 @@ class SellerCommissionPaymentAdmin(admin.ModelAdmin):
     ordering = ('id',)
     list_filter = ('status', 'order__seller__name',)
     search_fields = ('order__code',)
+    actions = ('approve_new_payments', 'reproved_new_payments', 'pay_approved_payments')
 
     def order_code(self, obj):
         return obj.order.code
@@ -34,6 +35,18 @@ class SellerCommissionPaymentAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         return False
 
+    @admin.action(description='Approve new royalties payments')
+    def approve_new_payments(self, request, queryset):
+        queryset.filter(status='new').update(status='approved')
+
+    @admin.action(description='Reprove new and approved royalties payments')
+    def reproved_new_payments(self, request, queryset):
+        queryset.filter(status__in=['new', 'approved']).update(status='reproved')
+
+    @admin.action(description='Pay approved royalties payments')
+    def pay_approved_payments(self, request, queryset):
+        queryset.filter(status='approved').update(status='payed')
+
 
 @admin.register(RoyaltiesPayment)
 class RoyaltiesPaymentAdmin(admin.ModelAdmin):
@@ -41,6 +54,7 @@ class RoyaltiesPaymentAdmin(admin.ModelAdmin):
     ordering = ('id',)
     list_filter = ('status', 'order__seller__name',)
     search_fields = ('order__code',)
+    actions = ('approve_new_payments', 'reproved_new_payments', 'pay_approved_payments')
 
     def order_code(self, obj):
         return obj.order.code
@@ -62,3 +76,15 @@ class RoyaltiesPaymentAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+    @admin.action(description='Approve new royalties payments')
+    def approve_new_payments(self, request, queryset):
+        queryset.filter(status='new').update(status='approved')
+
+    @admin.action(description='Reprove new and approved royalties payments')
+    def reproved_new_payments(self, request, queryset):
+        queryset.filter(status__in=['new', 'approved']).update(status='reproved')
+
+    @admin.action(description='Pay approved royalties payments')
+    def pay_approved_payments(self, request, queryset):
+        queryset.filter(status='approved').update(status='payed')
