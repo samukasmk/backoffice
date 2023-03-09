@@ -44,7 +44,7 @@
     "pk": 6,
     "fields": {
       "name": "Create membership subscription",
-      "path": "create_membership_subscription"
+      "path": "membership_subscription"
     }
   },
   {
@@ -52,7 +52,7 @@
     "pk": 7,
     "fields": {
       "name": "Upgrade membership subscription",
-      "path": "upgrade_membership_subscription"
+      "path": "membership_subscription"
     }
   },
   {
@@ -76,7 +76,7 @@
     "pk": 1,
     "fields": {
       "argument": "generate_royalties_sheet",
-      "pipeline_task": 2
+      "task": 2
     }
   },
   {
@@ -84,23 +84,39 @@
     "pk": 2,
     "fields": {
       "argument": "add_first_aid_video",
-      "pipeline_task": 3
+      "task": 3
     }
   },
   {
     "model": "tasks_pipeline.taskargument",
     "pk": 3,
     "fields": {
-      "argument": "create_membership_subscription",
-      "pipeline_task": 8
+      "argument": "create_subscription",
+      "task": 6
     }
   },
   {
     "model": "tasks_pipeline.taskargument",
     "pk": 4,
     "fields": {
-      "argument": "upgrade_membership_subscription",
-      "pipeline_task": 9
+      "argument": "upgrade_subscription",
+      "task": 7
+    }
+  },
+  {
+    "model": "tasks_pipeline.taskargument",
+    "pk": 5,
+    "fields": {
+      "argument": "create_subscription",
+      "task": 8
+    }
+  },
+  {
+    "model": "tasks_pipeline.taskargument",
+    "pk": 6,
+    "fields": {
+      "argument": "upgrade_subscription",
+      "task": 9
     }
   },
   {

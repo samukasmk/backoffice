@@ -11,7 +11,7 @@ class TaskArgumentInLineAdmin(admin.TabularInline):
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('name', 'path', 'arguments')
+    list_display = ('id', 'name', 'path', 'arguments')
     search_fields = ('name', 'path')
     ordering = ('id',)
     inlines = [TaskArgumentInLineAdmin]

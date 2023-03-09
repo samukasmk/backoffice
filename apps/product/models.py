@@ -1,6 +1,5 @@
 from django.db import models
-from django.utils import timezone
-from utils.django_models.field_choices import create_choices_tuple, code_to_name
+from apps.product.logic import define_sku_code
 
 
 class ProductType(models.Model):
@@ -26,8 +25,5 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         # creating SKU code
         if not self.sku:
-            sku_prefix = '-'.join([initials.upper()[:3] for initials in self.product_type.name.split(' ')[:2]])
-            sku_id = timezone.now().strftime('%y%m%d-%H%M%S-%f')[:17]
-            self.sku = f'{sku_prefix}-{sku_id}'
+            self.sku = define_sku_code(self.product_type.name)
         super().save(*args, **kwargs)
-

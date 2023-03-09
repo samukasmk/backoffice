@@ -1,0 +1,51 @@
+[
+  {
+    "model": "sales.seller",
+    "pk": 1,
+    "fields": {
+      "name": "Mary Kay Ash"
+    }
+  },
+  {
+    "model": "sales.seller",
+    "pk": 2,
+    "fields": {
+      "name": "Joe Girard"
+    }
+  },
+  {
+    "model": "sales.seller",
+    "pk": 3,
+    "fields": {
+      "name": "Dale Carnegie"
+    }
+  },
+  {
+    "model": "sales.seller",
+    "pk": 4,
+    "fields": {
+      "name": "Zig Ziglar"
+    }
+  },
+  {
+    "model": "sales.seller",
+    "pk": 5,
+    "fields": {
+      "name": "Erica Feidner"
+    }
+  },
+  {
+    "model": "sales.seller",
+    "pk": 6,
+    "fields": {
+      "name": "Napoleon Barragan"
+    }
+  },
+  {
+    "model": "sales.seller",
+    "pk": 7,
+    "fields": {
+      "name": "David Ogilvy"
+    }
+  }
+]

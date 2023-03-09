@@ -1,7 +1,12 @@
 from django.db import models
 from django.utils import timezone
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from utils.django_models.field_choices import create_choices_tuple
-from apps.sales.logic import calculate_total_price, calculate_total_weigth, calculate_total_seller_commission
+from apps.sales.logic import (calculate_total_price, calculate_total_weight, calculate_total_seller_commission,
+                              order_total_price, order_total_weight, order_total_seller_commission,
+                              get_pipeline_details)
+from apps.tasks_pipeline.tasks import pipeline_runner
 
 order_status = ('new', 'printed', 'picked', 'delivered')
 
@@ -22,7 +27,7 @@ class OrderedProduct(models.Model):
         return calculate_total_price(self.product.price, self.quantity)
 
     def total_weight(self):
-        return calculate_total_weigth(self.product.weight, self.quantity)
+        return calculate_total_weight(self.product.weight, self.quantity)
 
     def total_seller_commission(self):
         return calculate_total_seller_commission(self.total_price(), self.product.seller_commission_tax)
@@ -45,10 +50,21 @@ class Order(models.Model):
         return f'{self.pk} ({self.customer})'
 
     def order_total_price(self):
-        return sum([ordered_product.total_price() for ordered_product in self.ordered_products.all()])
+        return order_total_price(self)
 
     def order_total_weight(self):
-        return sum([ordered_product.total_weight() for ordered_product in self.ordered_products.all()])
+        return order_total_weight(self)
 
     def order_total_seller_commission(self):
-        return sum([ordered_product.total_seller_commission() for ordered_product in self.ordered_products.all()])
+        return order_total_seller_commission(self)
+
+    def get_pipeline_details(self):
+        return get_pipeline_details(self)
+
+
+@receiver(post_save, sender=Order, dispatch_uid="trigger_to_run_pipeline")
+def trigger_to_run_pipeline(sender, instance, created, **kwargs):
+    if created:
+        pipeline_runner.apply_async(kwargs={'model_class_ref': 'sales.Order',
+                                            'instance_pk': instance.pk},
+                                    countdown=0.5)

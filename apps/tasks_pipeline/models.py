@@ -19,10 +19,10 @@ class Task(models.Model):
 
 class TaskArgument(models.Model):
     argument = models.CharField(max_length=100)
-    pipeline_task = models.ForeignKey('tasks_pipeline.Task', related_name='arguments', on_delete=models.CASCADE)
+    task = models.ForeignKey('tasks_pipeline.Task', related_name='arguments', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.pipeline_task.name}: {self.argument}'
+        return f'{self.task.name}: {self.argument}'
 
 
 class Pipeline(models.Model):
