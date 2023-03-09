@@ -1,9 +1,9 @@
-from core.celery import app
+from celery import shared_task
 from utils.django_models.dynamic_import import get_model_class
 from tasks import registered_tasks
 
 
-@app.task
+@shared_task
 def pipeline_runner(model_class_ref, instance_pk):
     model_class = get_model_class(model_class_ref)
     instance_model = model_class.objects.get(pk=instance_pk)

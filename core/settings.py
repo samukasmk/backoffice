@@ -25,9 +25,9 @@ SECRET_KEY = 'django-insecure-95n6@52(f^__n8opfsdfcmoqyv8*eaxh#&iwun06ne!d8%$7fb
 DEBUG = True
 
 # Celery
-CELERY_ALWAYS_EAGER = True
-# CELERY_RESULT_BACKEND = 'disabled'
-# BROKER_URL = 'amqp://guest:guest@localhost:5672//'
+CELERY_ALWAYS_EAGER = False
+CELERY_RESULT_BACKEND = 'disabled'
+CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//'
 
 ALLOWED_HOSTS = []
 
