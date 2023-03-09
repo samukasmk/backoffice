@@ -1,11 +1,10 @@
-from tasks import (membership,
-                   messenger,
-                   packing_slip,
-                   royalties,
-                   seller_commission)
+import importlib
+from core import tasks as tasks_settings
 
-registered_tasks = {'membership.subscription': membership.subscription,
-                    'messenger.send_email': messenger.send_email,
-                    'packing_slip.create_pdf_file': packing_slip.create_pdf_file,
-                    'royalties.create_payment': royalties.create_payment,
-                    'seller_commission.create_payment': seller_commission.create_payment}
+registered_tasks = {}
+
+for full_path in tasks_settings.ALLOWED_TASKS:
+    package_name, module_name = full_path.rsplit('.', 1)
+    package = importlib.import_module(f'tasks.{package_name}')
+    module = getattr(package, module_name)
+    registered_tasks[full_path] = module
