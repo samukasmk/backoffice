@@ -4,8 +4,9 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from utils.django_models.field_choices import create_choices_tuple
 from apps.sales.logic import (calculate_total_price, calculate_total_weight, calculate_total_seller_commission,
-                              order_total_price, order_total_weight, order_total_seller_commission, get_pipeline_tasks)
-from apps.tasks_pipeline.runner import pipeline_runner
+                              order_total_price, order_total_weight, order_total_seller_commission,
+                              get_pipeline_details)
+from apps.tasks_pipeline.tasks import pipeline_runner
 
 order_status = ('new', 'printed', 'picked', 'delivered')
 
@@ -57,11 +58,11 @@ class Order(models.Model):
     def order_total_seller_commission(self):
         return order_total_seller_commission(self)
 
-    def get_pipeline_tasks(self):
-        return get_pipeline_tasks(self)
+    def get_pipeline_details(self):
+        return get_pipeline_details(self)
 
 
 @receiver(post_save, sender=Order, dispatch_uid="trigger_to_run_pipeline")
 def trigger_to_run_pipeline(sender, instance, created, **kwargs):
-    # if created:
-    pipeline_runner(instance)
+    if created:
+        pipeline_runner.delay(model_class_ref='sales.Order', instance_pk=instance.pk)
