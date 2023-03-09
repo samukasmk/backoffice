@@ -65,4 +65,6 @@ class Order(models.Model):
 @receiver(post_save, sender=Order, dispatch_uid="trigger_to_run_pipeline")
 def trigger_to_run_pipeline(sender, instance, created, **kwargs):
     if created:
-        pipeline_runner.delay(model_class_ref='sales.Order', instance_pk=instance.pk)
+        pipeline_runner.apply_async(kwargs={'model_class_ref': 'sales.Order',
+                                            'instance_pk': instance.pk},
+                                    countdown=0.5)
