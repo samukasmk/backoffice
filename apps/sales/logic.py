@@ -40,7 +40,7 @@ def get_pipeline_details(order_model):
     pipeline_tasks = PipelineTask.objects.filter(id__in=pipeline_tasks_id)
 
     for pipeline_task in pipeline_tasks:
-        task_path = pipeline_task.task.name
+        task_path = pipeline_task.task.path
         task_arguments = list(pipeline_task.task.arguments.all().values_list('argument', flat=True))
         pipeline[task_path] = pipeline.get(task_path, [])
         pipeline[task_path] += task_arguments
