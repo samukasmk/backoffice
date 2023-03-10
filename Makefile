@@ -55,4 +55,5 @@ rebuild-db:
 		&& ./manage.py loaddata data/default-values/5-customer.json \
 		&& ./manage.py loaddata data/default-values/6-sales.json \
 		&& ./manage.py loaddata data/default-values/7-financial.json \
-		&& ./manage.py createsuperuser --username admin --email 'admin@admin.com'
+		&& ./manage.py createsuperuser --username admin --email 'admin@admin.com' \
+		&& ./manage.py clean_monitoring_history
