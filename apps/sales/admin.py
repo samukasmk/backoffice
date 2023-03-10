@@ -34,7 +34,7 @@ class OrderDetailView(DetailView):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     # listing view
-    list_display = ('code', 'customer', 'status', 'seller', 'total_price', 'total_weight',
+    list_display = ('code', 'customer', 'status', 'seller', 'total_weight', 'total_price',
                     'total_seller_commission', 'order_created_at', 'packing_slip_details')
     search_fields = ('customer__name',)
     ordering = ('-id',)
@@ -54,7 +54,7 @@ class OrderAdmin(admin.ModelAdmin):
         return '{0:.2f}lb'.format(obj.order_total_weight())
 
     def total_seller_commission(self, obj):
-        return '{0:.2f}%'.format(obj.order_total_seller_commission())
+        return '${0:.2f}'.format(obj.order_total_seller_commission())
 
     def order_created_at(self, obj):
         return obj.created_at.strftime(settings.DEFAULT_TIME_FORMAT)

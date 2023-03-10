@@ -50,13 +50,22 @@ collectstatic:
 	./manage.py collectstatic --no-input --clear
 
 install: collectstatic
-	./manage.py migrate \
+	echo '[Execute db schemas migration]' \
+		&& ./manage.py migrate \
+		&& echo \
+		&& echo \
+		&& echo '[Loading initial values for database]' \
 		&& ./manage.py loaddata data/default-values/1-tasks_pipeline.json \
 		&& ./manage.py loaddata data/default-values/2-product.json \
 		&& ./manage.py loaddata data/default-values/3-locations-united-states.json \
 		&& ./manage.py loaddata data/default-values/4-locations-brazil.json \
 		&& ./manage.py loaddata data/default-values/5-customer.json \
 		&& ./manage.py loaddata data/default-values/6-sales.json \
-		&& ./manage.py loaddata data/default-values/7-financial.json \
+		&& echo \
+		&& echo \
+		&& echo '[Creating superuser for access the application]' \
 		&& ./manage.py createsuperuser --username admin --email 'admin@admin.com' \
+		&& echo \
+		&& echo \
+		&& echo '[Cleaning tasks monitoring history]' \
 		&& ./manage.py clean_monitoring_history
