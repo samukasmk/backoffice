@@ -1,10 +1,77 @@
 version: '3.5'
 
 services:
-  rabbitmq:
-    container_name: rabbitmq
+  backoffice_django:
+    container_name: backoffice_django
+    image: django_backoffice
+    build:
+      context: .
+    command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      - DJANGO_SETTINGS_MODULE=core.settings
+      - DEBUG=TRUE
+      - DATABASE_HOST=backoffice_postgres
+      - BROKER_HOST=backoffice_rabbitmq
+    volumes:
+      - .:/opt/django_backoffice
+      - ~/.ssh:/root/.ssh
+    restart: on-failure
+    depends_on:
+      - backoffice_rabbitmq
+      - backoffice_postgres
+    ports:
+      - 8000:8000
+    networks:
+      - local
+
+  backoffice_worker:
+    container_name: backoffice_worker
+    image: django_backoffice
+    build:
+      context: .
+    command: celery -A core worker -l INFO
+    environment:
+      - DEBUG=TRUE
+      - DATABASE_HOST=backoffice_postgres
+      - BROKER_HOST=backoffice_rabbitmq
+    volumes:
+      - .:/opt/django_backoffice
+      - ~/.ssh:/root/.ssh
+    restart: on-failure
+    depends_on:
+      - backoffice_rabbitmq
+      - backoffice_postgres
+    networks:
+      - local
+
+  backoffice_postgres:
+    container_name: backoffice_postgres
+    image: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - backoffice_postgres:/var/lib/postgresql/data
+    restart: on-failure
+    environment:
+      - POSTGRES_USER=django_backoffice
+      - POSTGRES_PASSWORD=django_backoffice
+      - POSTGRES_DB=django_backoffice
+    networks:
+      - local
+
+  backoffice_rabbitmq:
+    container_name: backoffice_rabbitmq
     image: rabbitmq:3-management
     restart: on-failure
     ports:
       - 5672:5672
       - 15672:15672
+    networks:
+      - local
+
+volumes:
+  backoffice_postgres:
+
+networks:
+  local:
+    driver: bridge

@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,14 +22,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-95n6@52(f^__n8opfsdfcmoqyv8*eaxh#&iwun06ne!d8%$7fb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG') == 'TRUE'
 
 # Celery
-CELERY_ALWAYS_EAGER = False
-CELERY_RESULT_BACKEND = 'disabled'
-CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//'
+_BROKER_USER = os.environ.get('BROKER_USER', 'guest')
+_BROKER_PASSWORD = os.environ.get('BROKER_PASSWORD', 'guest')
+_BROKER_HOST = os.environ.get('BROKER_HOST', 'localhost')
+_BROKER_PORT = os.environ.get('BROKER_PORT', 5672)
+_BROKER_VHOST = os.environ.get('BROKER_VHOST', '/')
+BROKER_URL = f'amqp://{_BROKER_USER}:{_BROKER_PASSWORD}@{_BROKER_HOST}:{_BROKER_PORT}/{_BROKER_VHOST}'
 
-ALLOWED_HOSTS = []
+# CELERY_BROKER_URL = BROKER_URL
+# CELERY_BROKER_URL = 'amqp://guest:guest@z:5672//'
+
+# CELERY_ALWAYS_EAGER = False
+# CELERY_RESULT_BACKEND = 'disabled'
+
+if not DEBUG:
+    ALLOWED_HOSTS = ['.localhost', '127.0.0.1', '[::1]']
 
 # Application definition
 INSTALLED_APPS = [
@@ -84,8 +94,12 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.environ.get('DATABASE_ENGINE', 'django.db.backends.postgresql'),
+        'NAME': os.environ.get('DATABASE_NAME', 'django_backoffice'),
+        'USER': os.environ.get('DATABASE_USER', 'django_backoffice'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'django_backoffice'),
+        'HOST': os.environ.get('DATABASE_HOST', 'localhost'),
+        'PORT': os.environ.get('DATABASE_PORT', 5432),
     }
 }
 
