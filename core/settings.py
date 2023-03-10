@@ -31,12 +31,8 @@ _BROKER_HOST = os.environ.get('BROKER_HOST', 'localhost')
 _BROKER_PORT = os.environ.get('BROKER_PORT', 5672)
 _BROKER_VHOST = os.environ.get('BROKER_VHOST', '/')
 BROKER_URL = f'amqp://{_BROKER_USER}:{_BROKER_PASSWORD}@{_BROKER_HOST}:{_BROKER_PORT}/{_BROKER_VHOST}'
-
-# CELERY_BROKER_URL = BROKER_URL
-# CELERY_BROKER_URL = 'amqp://guest:guest@z:5672//'
-
-# CELERY_ALWAYS_EAGER = False
-# CELERY_RESULT_BACKEND = 'disabled'
+CELERY_ALWAYS_EAGER = False
+CELERY_RESULT_BACKEND = 'disabled'
 
 if not DEBUG:
     ALLOWED_HOSTS = ['.localhost', '127.0.0.1', '[::1]']
@@ -149,3 +145,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 PACKING_SLIP_FOLDER = 'pdf/packing_slip'
 PACKING_SLIP_ROOT = MEDIA_ROOT / PACKING_SLIP_FOLDER
+
+# Static files
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
+STATIC_ROOT =  BASE_DIR / 'static_files'
