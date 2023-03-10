@@ -2,12 +2,12 @@ from django.db import models
 from django.utils import timezone
 from utils.django_models.field_choices import create_choices_tuple
 
-pipeline_task_status = ('new', 'running', 'failed')
+pipeline_task_status = ('new', 'running', 'success', 'failed')
 
 
 class Task(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    path = models.CharField(max_length=100)
+    path = models.CharField(max_length=300)
 
     def __str__(self):
         return self.name
@@ -44,8 +44,14 @@ class PipelineTask(models.Model):
 
 
 class Monitoring(models.Model):
-    pipeline_task_execution = models.ForeignKey('tasks_pipeline.PipelineTask', on_delete=models.CASCADE)
-    status = models.CharField(max_length=50, choices=create_choices_tuple(pipeline_task_status))
+    model_class_ref = models.CharField(max_length=255)
+    model_instance_pk = models.IntegerField()
+    task_path = models.CharField(max_length=300)
+    task_arguments = models.TextField(null=True, blank=True)
+    status = models.CharField(max_length=50, default='new', choices=create_choices_tuple(pipeline_task_status))
+    failed_reason = models.TextField(null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now, editable=False, blank=True)
+    updated_at = models.DateTimeField(default=timezone.now, editable=False, blank=True)
 
     def __str__(self):
-        return f'{self.pipeline_task_execution.pipeline.name}: {self.pipeline_task_execution.task.name}'
+        return f'Task execution ({self.task_path}): for model ({self.model_class_ref}, {self.model_instance_pk})'

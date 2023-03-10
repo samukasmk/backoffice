@@ -9,3 +9,4 @@ for full_path in tasks_settings.ALLOWED_TASKS:
         package = importlib.import_module(f'tasks.{package_name}')
         module = getattr(package, module_name)
         registered_tasks[full_path] = module
+

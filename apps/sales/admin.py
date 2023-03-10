@@ -62,4 +62,4 @@ class OrderAdmin(admin.ModelAdmin):
     @admin.action(description='Run tasks from order pipeline again')
     def run_order_pipeline_again(self, request, queryset):
         for order in queryset.all():
-            pipeline_runner.delay(model_class_ref='sales.Order', instance_pk=order.pk)
+            pipeline_runner.delay(model_class_ref='sales.Order', model_instance_pk=order.pk)

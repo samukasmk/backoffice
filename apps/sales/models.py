@@ -48,7 +48,7 @@ class Order(models.Model):
     updated_at = models.DateTimeField(default=timezone.now, editable=False, blank=True)
 
     def __str__(self):
-        return f'{self.pk} ({self.customer})'
+        return self.code
 
     def order_total_price(self):
         return calculate_order_total_price(self)
@@ -73,5 +73,5 @@ class Order(models.Model):
 def trigger_to_run_pipeline(sender, instance, created, **kwargs):
     if created:
         pipeline_runner.apply_async(kwargs={'model_class_ref': 'sales.Order',
-                                            'instance_pk': instance.pk},
+                                            'model_instance_pk': instance.pk},
                                     countdown=0.5)
