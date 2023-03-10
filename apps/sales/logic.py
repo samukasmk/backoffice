@@ -1,4 +1,5 @@
 from functools import lru_cache
+from django.utils import timezone
 from utils.django_models.dynamic_import import get_model_class
 
 
@@ -19,15 +20,21 @@ def calculate_total_seller_commission(total_price, seller_commission_tax):
 
 
 # Order model methods
-def order_total_price(order_model):
+def define_order_code(customer_type_name):
+    prefix = f'ORD-{customer_type_name[:3]}'.upper()
+    code = timezone.now().strftime('%y%m%d-%H%M%S-%f')[:19]
+    return f'{prefix}-{code}'
+
+
+def calculate_order_total_price(order_model):
     return sum([ordered_product.total_price() for ordered_product in order_model.ordered_products.all()])
 
 
-def order_total_weight(order_model):
+def calculate_order_total_weight(order_model):
     return sum([ordered_product.total_weight() for ordered_product in order_model.ordered_products.all()])
 
 
-def order_total_seller_commission(order_model):
+def calculate_order_total_seller_commission(order_model):
     return sum([ordered_product.total_seller_commission() for ordered_product in order_model.ordered_products.all()])
 
 

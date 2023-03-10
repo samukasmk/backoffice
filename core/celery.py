@@ -20,9 +20,7 @@ app.conf.result_expires = 0
 app.conf.task_ignore_result = True
 app.conf.task_store_errors_even_if_ignored = False
 
-###
-### Customizing Celery Queues
-###
+### TODO: Customizing Celery Queues
 # # define queues for bulting tasks in django apps
 # app.conf.task_create_missing_queues = True
 # app.conf.task_queues = [

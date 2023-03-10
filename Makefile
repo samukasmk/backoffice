@@ -50,7 +50,10 @@ rebuild-db:
 	rm db.sqlite3 && ./manage.py migrate \
 		&& ./manage.py loaddata data/default-values/1-tasks_pipeline.json \
 		&& ./manage.py loaddata data/default-values/2-product.json \
-		&& ./manage.py loaddata data/default-values/3-customer.json \
-		&& ./manage.py loaddata data/default-values/4-sales.json \
-		&& ./manage.py loaddata data/default-values/5-financial.json \
-		&& ./manage.py createsuperuser --username admin --email 'admin@admin.com'
+		&& ./manage.py loaddata data/default-values/3-locations-united-states.json \
+		&& ./manage.py loaddata data/default-values/4-locations-brazil.json \
+		&& ./manage.py loaddata data/default-values/5-customer.json \
+		&& ./manage.py loaddata data/default-values/6-sales.json \
+		&& ./manage.py loaddata data/default-values/7-financial.json \
+		&& ./manage.py createsuperuser --username admin --email 'admin@admin.com' \
+		&& ./manage.py clean_monitoring_history
