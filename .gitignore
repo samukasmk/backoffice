@@ -136,3 +136,5 @@ dmypy.json
 media/
 media/pdf/
 media/pdf/packing_slip/
+static/
+static_files/
