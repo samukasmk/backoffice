@@ -33,7 +33,7 @@ def create_pdf_file(model_instance_pk, task_arguments, *args, **kwargs):
                                                 request=None)
 
     # create pdf file
-    pdfkit.from_string(content_html, pdf_path)
+    pdfkit.from_string(content_html, str(pdf_path))
 
     # save pdf path on model
     order_model.packing_slip_file = f'{settings.PACKING_SLIP_FOLDER}/{pdf_file_name}'

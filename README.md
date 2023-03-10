@@ -30,10 +30,11 @@ docker-compose up
 ```
 - Execute commands above to create all containers
 - Waits until the end of the process (it's important) 
-
+- Let this command running in current terminal tab
+- Open another terminal tab to execute the next command (without stopping this)
 > Note: on the first time it will be very slow for downloading images.
 
-**3.) Creating initial values**
+**3.) Creating initial database values**
 ```sh
 docker-compose exec django make install
 ```

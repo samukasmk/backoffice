@@ -15,6 +15,7 @@ services:
     volumes:
       - .:/opt/django_backoffice
       - static_volume:/opt/static_files
+      - media_volume:/opt/django_backoffice/media
     restart: on-failure
     depends_on:
       - rabbitmq
@@ -75,6 +76,7 @@ services:
     volumes:
       - ./.nginx/nginx.dev.conf:/etc/nginx/conf.d/default.conf
       - static_volume:/opt/static_files
+      - media_volume:/opt/media_files
     restart: on-failure
     ports:
       - 80:80
@@ -84,6 +86,7 @@ services:
 volumes:
   postgres:
   static_volume:
+  media_volume:
 
 networks:
   local:

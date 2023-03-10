@@ -53,7 +53,7 @@ class Order(models.Model):
     customer = models.ForeignKey('customer.Customer', on_delete=models.PROTECT)
     seller = models.ForeignKey('sales.Seller', on_delete=models.PROTECT)
 
-    packing_slip_file = models.FileField(null=True, blank=True, editable=True,
+    packing_slip_file = models.FileField(null=True, blank=True, editable=False,
                                          storage=FileSystemStorage(location=settings.MEDIA_ROOT))
 
     created_at = models.DateTimeField(default=timezone.now, editable=False, blank=True)
