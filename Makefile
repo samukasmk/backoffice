@@ -45,9 +45,12 @@ test: clean-cache
 test-and-coverage: clean-cache
 	pytest --cov=. --cov-report xml:coverage.xml --junit-xml=junit.xml .
 
-### actions to rebuild dev db
-rebuild-db:
-	rm db.sqlite3 || true && ./manage.py migrate \
+### actions to build new envs
+collectstatic:
+	./manage.py collectstatic --no-input --clear
+
+install: collectstatic
+	./manage.py migrate \
 		&& ./manage.py loaddata data/default-values/1-tasks_pipeline.json \
 		&& ./manage.py loaddata data/default-values/2-product.json \
 		&& ./manage.py loaddata data/default-values/3-locations-united-states.json \
