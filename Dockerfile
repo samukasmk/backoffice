@@ -1,5 +1,9 @@
 FROM python:3.11.2-slim
 
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
 RUN apt-get update && \
     apt-get install --no-install-recommends -y gcc python-dev wkhtmltopdf libpq-dev && \
     apt clean && \

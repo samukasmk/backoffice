@@ -1,4 +1,4 @@
-version: '3.5'
+version: '3.9'
 
 services:
   django:
@@ -6,8 +6,7 @@ services:
     image: django_backoffice
     build:
       context: .
-    # command: python manage.py runserver 0.0.0.0:8000
-    command: gunicorn CoreRoot.wsgi:application --bind 0.0.0.0:5000
+    command: gunicorn core.wsgi:application --bind 0.0.0.0:5000
     environment:
       - DJANGO_SETTINGS_MODULE=core.settings
       - DATABASE_HOST=postgres
@@ -37,7 +36,7 @@ services:
       - BROKER_HOST=rabbitmq
     volumes:
       - .:/opt/django_backoffice
-      - static_volume:/opt/static_files
+      - static_volume:/opt/django_backoffice/static_files
     restart: on-failure
     depends_on:
       - rabbitmq
@@ -70,16 +69,13 @@ services:
     networks:
       - local
 
-  backoffice_nginx:
-    container_name: backoffice_nginx
+  nginx:
+    container_name: nginx
     image: nginx:stable
     volumes:
       - ./.nginx/nginx.dev.conf:/etc/nginx/conf.d/default.conf
       - static_volume:/opt/static_files
     restart: on-failure
-    depends_on:
-      - django
-      - postgres
     ports:
       - 80:80
     networks:
