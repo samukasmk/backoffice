@@ -89,6 +89,8 @@ DATABASES = {
     }
 }
 
+MEDIA_ROOT = BASE_DIR / 'media/pdf/packing_slip'
+
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 

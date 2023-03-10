@@ -44,6 +44,8 @@ class OrderedProduct(models.Model):
     def __str__(self):
         return f'{self.product.name}: {self.quantity}'
 
+from django.core.files.storage import FileSystemStorage
+fs = FileSystemStorage(location='/media/pdf')
 
 class Order(models.Model):
     code = models.CharField(max_length=30, unique=True, blank=True, editable=False)
@@ -51,7 +53,7 @@ class Order(models.Model):
     customer = models.ForeignKey('customer.Customer', on_delete=models.PROTECT)
     seller = models.ForeignKey('sales.Seller', on_delete=models.PROTECT)
 
-    packing_slip_file = models.FileField(upload_to="packing_slips/", editable=False, null=True, blank=True)
+    packing_slip_file = models.FileField(upload_to="packing_slips/", storage=fs, null=True, blank=True)
 
     created_at = models.DateTimeField(default=timezone.now, editable=False, blank=True)
     updated_at = models.DateTimeField(default=timezone.now, editable=False, blank=True)

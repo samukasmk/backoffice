@@ -34,8 +34,8 @@ class OrderDetailView(DetailView):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     # listing view
-    list_display = ('code', 'customer', 'status', 'seller', 'total_price',
-                    'total_weight', 'total_seller_commission', 'order_created_at', 'packing_slip')
+    list_display = ('code', 'customer', 'status', 'seller', 'total_price', 'total_weight',
+                    'total_seller_commission', 'order_created_at', 'packing_slip_file', 'packing_slip')
     search_fields = ('customer__name',)
     ordering = ('-id',)
     list_filter = ('status', 'seller')
