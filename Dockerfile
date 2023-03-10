@@ -5,7 +5,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update && \
-    apt-get install --no-install-recommends -y gcc python-dev wkhtmltopdf libpq-dev && \
+    apt-get install --no-install-recommends -y make gcc python-dev wkhtmltopdf libpq-dev && \
     apt clean && \
     apt autoclean && \
     rm -rf /var/lib/apt/lists/*

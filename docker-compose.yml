@@ -24,8 +24,8 @@ services:
     networks:
       - local
 
-  worker:
-    container_name: worker
+  celery:
+    container_name: celery
     image: django_backoffice
     build:
       context: .

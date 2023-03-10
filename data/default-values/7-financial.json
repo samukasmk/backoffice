@@ -1,18 +1,2 @@
 [
-  {
-    "model": "financial.sellercommissionpayment",
-    "pk": 7,
-    "fields": {
-      "order": 1,
-      "status": "new"
-    }
-  },
-  {
-    "model": "financial.royaltiespayment",
-    "pk": 10,
-    "fields": {
-      "order": 1,
-      "status": "approved"
-    }
-  }
 ]
