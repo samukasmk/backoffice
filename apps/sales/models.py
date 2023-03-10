@@ -26,11 +26,20 @@ class OrderedProduct(models.Model):
     def total_price(self):
         return calculate_total_price(self.product.price, self.quantity)
 
+    def total_price_fmt(self):
+        return '${0:.2f}'.format(self.total_price())
+
     def total_weight(self):
         return calculate_total_weight(self.product.weight, self.quantity)
 
+    def total_weight_fmt(self):
+        return '{0:.2f}lb'.format(self.total_weight())
+
     def total_seller_commission(self):
         return calculate_total_seller_commission(self.total_price(), self.product.seller_commission_tax)
+
+    def total_seller_commission_fmt(self):
+        return '{0:.2f}%'.format(self.total_seller_commission(self))
 
     def __str__(self):
         return f'{self.product.name}: {self.quantity}'
@@ -50,14 +59,26 @@ class Order(models.Model):
     def __str__(self):
         return self.code
 
+    def order_ordered_products(self):
+        return self.ordered_products.all()
+
     def order_total_price(self):
         return calculate_order_total_price(self)
+
+    def order_total_price_fmt(self):
+        return '${0:.2f}'.format(self.order_total_price())
 
     def order_total_weight(self):
         return calculate_order_total_weight(self)
 
+    def order_total_weight_fmt(self):
+        return '{0:.2f}lb'.format(self.order_total_weight())
+
     def order_total_seller_commission(self):
         return calculate_order_total_seller_commission(self)
+
+    def order_total_seller_commission_fmt(self):
+        return '{0:.2f}%'.format(self.order_total_seller_commission(self))
 
     def get_pipeline_details(self):
         return get_pipeline_details(self)

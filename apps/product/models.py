@@ -22,6 +22,14 @@ class Product(models.Model):
     def __str__(self):
         return f'{self.name}: ${self.price}'
 
+    @property
+    def price_fmt(self):
+        return f'${self.price}'
+
+    @property
+    def weight_fmt(self):
+        return f'{self.weight}lb'
+
     def save(self, *args, **kwargs):
         # creating SKU code
         if not self.sku:
