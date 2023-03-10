@@ -1,7 +1,9 @@
+from django.conf import settings
 from django.db import models
-from django.utils import timezone
 from django.db.models.signals import post_save
+from django.utils import timezone
 from django.dispatch import receiver
+from django.core.files.storage import FileSystemStorage
 from utils.django_models.field_choices import create_choices_tuple
 from apps.sales.logic import (calculate_total_price, calculate_total_weight, calculate_total_seller_commission,
                               define_order_code, calculate_order_total_price, calculate_order_total_weight,
@@ -26,11 +28,20 @@ class OrderedProduct(models.Model):
     def total_price(self):
         return calculate_total_price(self.product.price, self.quantity)
 
+    def total_price_fmt(self):
+        return '${0:.2f}'.format(self.total_price())
+
     def total_weight(self):
         return calculate_total_weight(self.product.weight, self.quantity)
 
+    def total_weight_fmt(self):
+        return '{0:.2f}lb'.format(self.total_weight())
+
     def total_seller_commission(self):
         return calculate_total_seller_commission(self.total_price(), self.product.seller_commission_tax)
+
+    def total_seller_commission_fmt(self):
+        return '{0:.2f}%'.format(self.total_seller_commission(self))
 
     def __str__(self):
         return f'{self.product.name}: {self.quantity}'
@@ -42,7 +53,8 @@ class Order(models.Model):
     customer = models.ForeignKey('customer.Customer', on_delete=models.PROTECT)
     seller = models.ForeignKey('sales.Seller', on_delete=models.PROTECT)
 
-    packing_slip_file = models.FileField(upload_to="packing_slips/", editable=False, null=True, blank=True)
+    packing_slip_file = models.FileField(null=True, blank=True, editable=True,
+                                         storage=FileSystemStorage(location=settings.MEDIA_ROOT))
 
     created_at = models.DateTimeField(default=timezone.now, editable=False, blank=True)
     updated_at = models.DateTimeField(default=timezone.now, editable=False, blank=True)
@@ -50,14 +62,26 @@ class Order(models.Model):
     def __str__(self):
         return self.code
 
+    def order_ordered_products(self):
+        return self.ordered_products.all()
+
     def order_total_price(self):
         return calculate_order_total_price(self)
+
+    def order_total_price_fmt(self):
+        return '${0:.2f}'.format(self.order_total_price())
 
     def order_total_weight(self):
         return calculate_order_total_weight(self)
 
+    def order_total_weight_fmt(self):
+        return '{0:.2f}lb'.format(self.order_total_weight())
+
     def order_total_seller_commission(self):
         return calculate_order_total_seller_commission(self)
+
+    def order_total_seller_commission_fmt(self):
+        return '{0:.2f}%'.format(self.order_total_seller_commission(self))
 
     def get_pipeline_details(self):
         return get_pipeline_details(self)

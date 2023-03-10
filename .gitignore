@@ -133,3 +133,6 @@ dmypy.json
 
 # PDF files for Packing Slips
 *.pdf
+media/
+media/pdf/
+media/pdf/packing_slip/
