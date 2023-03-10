@@ -19,10 +19,20 @@ def create_pdf_file(model_instance_pk, task_arguments, *args, **kwargs):
     if os.path.exists(pdf_path):
         os.remove(pdf_path)
 
-    # create pdf file
+    # generate html content
     content_html = loader.render_to_string(template_name='packing_slip/packing_slip.html',
-                                           context={'order': order_model},
+                                           context={'order': order_model,
+                                                    'sheet_name': 'Delivery',
+                                                    'add_first_aid_video': 'add_first_aid_video' in task_arguments},
                                            request=None)
+    if 'generate_royalties_sheet' in task_arguments:
+        content_html += loader.render_to_string(template_name='packing_slip/packing_slip.html',
+                                                context={'order': order_model,
+                                                         'sheet_name': 'Royalties Payment',
+                                                         'add_first_aid_video': 'add_first_aid_video' in task_arguments},
+                                                request=None)
+
+    # create pdf file
     pdfkit.from_string(content_html, pdf_path)
 
     # save pdf path on model
