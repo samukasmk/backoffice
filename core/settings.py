@@ -89,8 +89,6 @@ DATABASES = {
     }
 }
 
-MEDIA_ROOT = BASE_DIR / 'media/pdf/packing_slip'
-
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -131,3 +129,9 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DEFAULT_TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
+
+# Media URL files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+PACKING_SLIP_FOLDER = 'pdf/packing_slip'
+PACKING_SLIP_ROOT = MEDIA_ROOT / PACKING_SLIP_FOLDER

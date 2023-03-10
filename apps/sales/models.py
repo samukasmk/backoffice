@@ -1,7 +1,9 @@
+from django.conf import settings
 from django.db import models
-from django.utils import timezone
 from django.db.models.signals import post_save
+from django.utils import timezone
 from django.dispatch import receiver
+from django.core.files.storage import FileSystemStorage
 from utils.django_models.field_choices import create_choices_tuple
 from apps.sales.logic import (calculate_total_price, calculate_total_weight, calculate_total_seller_commission,
                               define_order_code, calculate_order_total_price, calculate_order_total_weight,
@@ -44,8 +46,6 @@ class OrderedProduct(models.Model):
     def __str__(self):
         return f'{self.product.name}: {self.quantity}'
 
-from django.core.files.storage import FileSystemStorage
-fs = FileSystemStorage(location='/media/pdf')
 
 class Order(models.Model):
     code = models.CharField(max_length=30, unique=True, blank=True, editable=False)
@@ -53,7 +53,8 @@ class Order(models.Model):
     customer = models.ForeignKey('customer.Customer', on_delete=models.PROTECT)
     seller = models.ForeignKey('sales.Seller', on_delete=models.PROTECT)
 
-    packing_slip_file = models.FileField(upload_to="packing_slips/", storage=fs, null=True, blank=True)
+    packing_slip_file = models.FileField(null=True, blank=True, editable=True,
+                                         storage=FileSystemStorage(location=settings.MEDIA_ROOT))
 
     created_at = models.DateTimeField(default=timezone.now, editable=False, blank=True)
     updated_at = models.DateTimeField(default=timezone.now, editable=False, blank=True)

@@ -35,7 +35,7 @@ class OrderDetailView(DetailView):
 class OrderAdmin(admin.ModelAdmin):
     # listing view
     list_display = ('code', 'customer', 'status', 'seller', 'total_price', 'total_weight',
-                    'total_seller_commission', 'order_created_at', 'packing_slip_file', 'packing_slip')
+                    'total_seller_commission', 'order_created_at', 'packing_slip_details')
     search_fields = ('customer__name',)
     ordering = ('-id',)
     list_filter = ('status', 'seller')
@@ -82,6 +82,6 @@ class OrderAdmin(admin.ModelAdmin):
                      name=f"sales_order_detail"),
                 *super().get_urls()]
 
-    def packing_slip(self, obj):
+    def packing_slip_details(self, obj):
         url = reverse("admin:sales_order_detail", args=[obj.pk])
         return format_html(f'<a href="{url}">📝</a>')
