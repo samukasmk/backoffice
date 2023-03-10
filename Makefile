@@ -47,7 +47,7 @@ test-and-coverage: clean-cache
 
 ### actions to rebuild dev db
 rebuild-db:
-	rm db.sqlite3 && ./manage.py migrate \
+	rm db.sqlite3 || true && ./manage.py migrate \
 		&& ./manage.py loaddata data/default-values/1-tasks_pipeline.json \
 		&& ./manage.py loaddata data/default-values/2-product.json \
 		&& ./manage.py loaddata data/default-values/3-locations-united-states.json \

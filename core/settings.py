@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,14 +22,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-95n6@52(f^__n8opfsdfcmoqyv8*eaxh#&iwun06ne!d8%$7fb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG') == 'TRUE'
 
 # Celery
+_BROKER_USER = os.environ.get('BROKER_USER', 'guest')
+_BROKER_PASSWORD = os.environ.get('BROKER_PASSWORD', 'guest')
+_BROKER_HOST = os.environ.get('BROKER_HOST', 'localhost')
+_BROKER_PORT = os.environ.get('BROKER_PORT', 5672)
+_BROKER_VHOST = os.environ.get('BROKER_VHOST', '/')
+BROKER_URL = f'amqp://{_BROKER_USER}:{_BROKER_PASSWORD}@{_BROKER_HOST}:{_BROKER_PORT}/{_BROKER_VHOST}'
 CELERY_ALWAYS_EAGER = False
 CELERY_RESULT_BACKEND = 'disabled'
-CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//'
 
-ALLOWED_HOSTS = []
+if not DEBUG:
+    ALLOWED_HOSTS = ['.localhost', '127.0.0.1', '[::1]']
 
 # Application definition
 INSTALLED_APPS = [
@@ -84,8 +90,12 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.environ.get('DATABASE_ENGINE', 'django.db.backends.postgresql'),
+        'NAME': os.environ.get('DATABASE_NAME', 'django_backoffice'),
+        'USER': os.environ.get('DATABASE_USER', 'django_backoffice'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'django_backoffice'),
+        'HOST': os.environ.get('DATABASE_HOST', 'localhost'),
+        'PORT': os.environ.get('DATABASE_PORT', 5432),
     }
 }
 
@@ -135,3 +145,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 PACKING_SLIP_FOLDER = 'pdf/packing_slip'
 PACKING_SLIP_ROOT = MEDIA_ROOT / PACKING_SLIP_FOLDER
+
+# Static files
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
+STATIC_ROOT =  BASE_DIR / 'static_files'
