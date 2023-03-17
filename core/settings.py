@@ -149,6 +149,7 @@ PACKING_SLIP_ROOT = MEDIA_ROOT / PACKING_SLIP_FOLDER
 # Static files
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'static'
+    os.path.join(BASE_DIR, 'static')
 ]
-STATIC_ROOT =  BASE_DIR / 'static_files'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_files')
